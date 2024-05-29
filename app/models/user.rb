@@ -17,4 +17,24 @@ class User < ApplicationRecord
   validates_presence_of :first_name, :last_name, :email
   validates :first_name, :last_name, format: { with: ALPHABET_REGEX, message: "can only contain letters and spaces" }
   validates :email, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP
+
+  #
+  # Set response of user data
+  #
+  # @param [String] JWT token
+  #
+  # @return [Hash] {id, type, attribute: {token, email, name, country}}
+  #
+  def format_response(token)
+    {
+      id: id,
+      type: "users",
+      attributes: {
+        token: token,
+        email: email,
+        name: "#{first_name} #{last_name}",
+        country: country
+      }
+    }
+  end
 end

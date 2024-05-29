@@ -19,10 +19,9 @@ module Api
         # Convert camelCase parameter to snake_case
         user_attributes = user_params.transform_keys(&:underscore)
         user = User.create!(user_attributes)
-
         token = encode_token({id: user.id})
 
-        render json: {user:, token:}, status: :created
+        render json: user.format_response(token)
       end
 
       private
