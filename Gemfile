@@ -48,3 +48,9 @@ end
 group :development do
   gem "rubocop", "~> 1.63", require: false
 end
+
+group :test do
+  gem "database_cleaner", "~> 2.0", ">= 2.0.1"
+  gem "factory_bot_rails", "~> 6.2"
+  gem "rspec-rails", "~> 6.0", ">= 6.0.1"
+end
