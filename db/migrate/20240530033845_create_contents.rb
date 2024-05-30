@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 #
-# Table to store user's content information
+# Table to store user's content informations
 #
 class CreateContents < ActiveRecord::Migration[7.0]
   #
