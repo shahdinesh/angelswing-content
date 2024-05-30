@@ -6,8 +6,6 @@ module Api
     # Handle user sign in action
     #
     class AuthController < ApplicationController
-      include JwtToken
-
       #
       # Endpoint to handle sing in of user
       # POST /auth/signin
@@ -29,7 +27,7 @@ module Api
 
         token = encode_token({id: user.id})
 
-        render json: user.format_response(token)
+        render json: UserSerializer.new(user, params: {token:})
       end
 
       private

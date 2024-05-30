@@ -4,10 +4,25 @@
 # Base application controller
 #
 class ApplicationController < ActionController::API
+  include JwtToken
+
   rescue_from StandardError, with: :standard_error
   rescue_from ActiveRecord::RecordInvalid, with: :form_validation_error
 
   private
+
+  #
+  # Retrieve authenticated user detail send in header token
+  #
+  # @return [User] user instance
+  #
+  def authenticated_user
+    @_authenticated_user ||= begin
+      user_id = decoded_token&.dig(0, "id")
+
+      User.find_by(id: user_id)
+    end
+  end
 
   #
   # Send form validation error message full message as response
