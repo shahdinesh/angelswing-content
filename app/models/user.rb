@@ -14,12 +14,13 @@ class User < ApplicationRecord
   ALPHABET_REGEX = /\A[a-zA-Z ]+\z/
   DATETIME_FORMAT = "%Y-%m-%dT%H:%M%:z"
 
-
   has_secure_password
 
   validates_presence_of :first_name, :last_name, :email
-  validates :first_name, :last_name, format: { with: ALPHABET_REGEX, message: "can only contain letters and spaces" }
+  validates :first_name, :last_name, format: {with: ALPHABET_REGEX, message: "can only contain letters and spaces"}
   validates :email, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP
+
+  has_many :contents, dependent: :destroy
 
   #
   # Set response of user data
@@ -38,8 +39,8 @@ class User < ApplicationRecord
           email: email,
           name: "#{first_name} #{last_name}",
           country: country,
-          created_at: created_at.strftime(DATETIME_FORMAT),
-          updated_at: updated_at.strftime(DATETIME_FORMAT)
+          createdAt: created_at.strftime(DATETIME_FORMAT),
+          updatedAt: updated_at.strftime(DATETIME_FORMAT)
         }
       }
     }
