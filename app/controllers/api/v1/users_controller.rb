@@ -19,7 +19,7 @@ module Api
         user = User.create!(user_attributes)
         token = encode_token({id: user.id})
 
-        render json: user.format_response(token)
+        render json: UserSerializer.new(user, params: {token:}), status: :created
       end
 
       private

@@ -12,7 +12,6 @@
 #
 class User < ApplicationRecord
   ALPHABET_REGEX = /\A[a-zA-Z ]+\z/
-  DATETIME_FORMAT = "%Y-%m-%dT%H:%M%:z"
 
   has_secure_password
 
@@ -21,28 +20,4 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP
 
   has_many :contents, dependent: :destroy
-
-  #
-  # Set response of user data
-  #
-  # @param [String] JWT token
-  #
-  # @return [Hash] {id, type, attribute: {token, email, name, country}}
-  #
-  def format_response(token)
-    {
-      data: {
-        id: id,
-        type: "users",
-        attributes: {
-          token: token,
-          email: email,
-          name: "#{first_name} #{last_name}",
-          country: country,
-          createdAt: created_at.strftime(DATETIME_FORMAT),
-          updatedAt: updated_at.strftime(DATETIME_FORMAT)
-        }
-      }
-    }
-  end
 end
