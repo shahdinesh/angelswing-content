@@ -16,7 +16,7 @@ module Api
       # @return [Hash] {data: [{id, type, attribute: {title, body, createdAt, updatedAt}}, ...]}
       #
       def list
-        render json: Content.all
+        render json: ContentSerializer.new(Content.all)
       end
 
       #
@@ -29,7 +29,7 @@ module Api
         content = authenticated_user.contents
                                     .create!(content_params)
 
-        render json: content, status: :created
+        render json: ContentSerializer.new(content), status: :created
       end
 
       #
@@ -43,7 +43,7 @@ module Api
       def update
         @content.update!(content_params)
 
-        render json: @content
+        render json: ContentSerializer.new(@content)
       end
 
       #
