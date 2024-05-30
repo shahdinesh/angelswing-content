@@ -25,3 +25,19 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+  test:
+    build:
+      context: .
+      cache_from:
+        - angelswing-content:latest
+    image: angelswing-content:latest
+    volumes:
+      - .:/app
+    command: bundle exec rspec
+    env_file:
+      - '.env.test'
+    ports:
+      - "3000"
+    depends_on:
+      - db
+    profiles: [ "test" ]
