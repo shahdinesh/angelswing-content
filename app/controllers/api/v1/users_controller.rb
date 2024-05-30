@@ -6,8 +6,6 @@ module Api
     # Handle user sign up action
     #
     class UsersController < ApplicationController
-      include JwtToken
-
       #
       # Endpoint to handle creation of user
       # POST /users/signup

@@ -6,8 +6,6 @@ module Api
     # Handle user sign in action
     #
     class AuthController < ApplicationController
-      include JwtToken
-
       #
       # Endpoint to handle sing in of user
       # POST /auth/signin
