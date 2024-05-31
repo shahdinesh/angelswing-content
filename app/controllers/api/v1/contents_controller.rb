@@ -6,7 +6,7 @@ module Api
     # Handle read, write, update, and delete operation for content
     #
     class ContentsController < ApplicationController
-      before_action :authenticate
+      before_action :authenticate, except: :list
       before_action :content, only: %i[update destroy]
 
       #
